@@ -1,0 +1,16 @@
+.idea/
+taotao-common/.svn/
+taotao-content/.svn/
+taotao-item-web/.svn/
+taotao-manager/.svn/
+taotao-manager-web/.svn/entries
+taotao-manager-web/.svn/
+taotao-parent/.svn/
+taotao-portal-web/.svn/
+taotao-search/.svn/
+taotao-search-web/.svn/
+*.iml
+taotao-manager/taotao-manager-dao/target/
+taotao-manager/taotao-manager-interface/target/
+taotao-manager/taotao-manager-pojo/target/
+taotao-manager/taotao-manager-service/target/

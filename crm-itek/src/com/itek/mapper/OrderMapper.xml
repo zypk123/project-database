@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itek.mapper.OrderDao">
+
+	<resultMap type="Order" id="OrderResult">
+		<id property="id" column="id"/>
+		<result property="orderNo" column="orderNo"/>
+		<result property="orderDate" column="orderDate"/>
+		<result property="address" column="address"/>
+		<result property="state" column="state"/>
+		<!-- 配置一对多关系 -->
+		<association property="customer" column="cusId" select="com.itek.mapper.CustomerDao.findById"></association>
+	</resultMap>
+	
+	<!-- 查询 -->
+	<select id="find" parameterType="Map" resultMap="OrderResult">
+		select * from t_customer_order
+		<where>
+			<if test="cusId!=null and cusId!='' ">
+				and cusId = #{cusId}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+
+	<!-- 获取总记录数 -->
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_customer_order
+		<where>
+			<if test="cusId!=null and cusId!='' ">
+				and cusId = #{cusId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过id查找客户订单信息 -->
+	<select id="findById" parameterType="Integer" resultMap="OrderResult">
+		select * from t_customer_order where id=#{id}
+	</select>
+	
+	<!-- 查找客户最近一次的订单记录 -->
+	<select id="findLastOrderByCusId" parameterType="Integer" resultMap="OrderResult">
+		select * from t_customer_order where cusId=#{cusId} order by orderdate desc limit 0,1;
+	</select>
+	
+</mapper> 
